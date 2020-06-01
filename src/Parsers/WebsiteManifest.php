@@ -6,9 +6,11 @@ use Zeus\Parsers\Contracts\DescribesWebsite;
 
 class WebsiteManifest implements DescribesWebsite
 {
-    private $domain;
+    private string $domain;
 
-    private $protocol;
+    private string $protocol;
+
+    private string $startUrl = '/';
 
     public function __construct(string $domain, string $protocol)
     {
@@ -24,5 +26,16 @@ class WebsiteManifest implements DescribesWebsite
     public function getProtocol(): string
     {
         return $this->protocol;
+    }
+
+    public function getStartUrl(): string
+    {
+        return $this->startUrl;
+    }
+
+    public function setStartUrl(string $url): DescribesWebsite
+    {
+        $this->startUrl = $url;
+        return $this;
     }
 }

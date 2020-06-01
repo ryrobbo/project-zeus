@@ -2,7 +2,7 @@
 
 namespace Zeus\Crawlers\Contracts;
 
-interface CrawlerContract
+interface CrawlsUrls
 {
     public function crawl();
 }

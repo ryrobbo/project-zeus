@@ -2,12 +2,11 @@
 
 namespace Zeus\Parsers\Elements;
 
-use Zeus\Parsers\Contracts\DescribesWebsite;
-use Zeus\Parsers\Elements\Contracts\ParseAnchors;
+use Zeus\Parsers\Elements\Contracts\ParsesAnchors;
 
-class InternalAnchors implements ParseAnchors
+class InternalAnchors implements ParsesAnchors
 {
-    public function parseAnchors(DescribesWebsite $website, \DOMDocument $document): array
+    public function parseAnchors(string $domain, \DOMDocument $document): array
     {
         $internalLinks = [];
 
@@ -18,7 +17,7 @@ class InternalAnchors implements ParseAnchors
 
             if (substr($href, 0, 4) === 'http') {
                 $url = parse_url($href);
-                if ($url['host'] === $website->getDomain() || $url['host'] === 'www.' . $website->getDomain()) {
+                if ($url['host'] === $domain || $url['host'] === 'www.' . $domain) {
                     array_push($internalLinks, $url['path']);
                 }
             } else {

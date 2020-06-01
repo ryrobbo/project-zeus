@@ -4,7 +4,6 @@ namespace Tests\Unit\Parsers\Elements;
 
 use PHPUnit\Framework\TestCase;
 use Zeus\Parsers\Elements\InternalAnchors;
-use Zeus\Parsers\WebsiteManifest;
 
 class InternalAnchorsTest extends TestCase
 {
@@ -18,11 +17,9 @@ class InternalAnchorsTest extends TestCase
         $document->loadHTML($html);
         libxml_clear_errors();
 
-        $website = new WebsiteManifest('ryrobbo.com', 'http');
-
         $parser = new InternalAnchors();
 
-        $links = $parser->parseAnchors($website, $document);
+        $links = $parser->parseAnchors('ryrobbo.com', $document);
 
         $this->assertEquals(7, count($links));
     }
