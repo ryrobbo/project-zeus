@@ -37,6 +37,10 @@ class CrawledHtmlParser implements ParsesHtmlDocuments
 
     public function getLinks(): array
     {
+        if (! $this->domDocument instanceof \DOMDocument) {
+            throw new ParserMissingHtmlException('Parser requires initialised DOMDocument, see $this->loadHtml().');
+        }
+
         return $this->linkParser->parseAnchors($this->manifest->getDomain(), $this->domDocument);
     }
 

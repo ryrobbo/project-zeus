@@ -8,7 +8,7 @@ use Zeus\Parsers\Elements\InternalAnchors;
 class InternalAnchorsTest extends TestCase
 {
     /** @test */
-    public function only_unique_internal_links_are_extracted()
+    public function only_unique_internal_links_are_extracted(): void
     {
         $html = file_get_contents(__DIR__ . '/../../../__sample_html__/ryrobbo-internal-links.html');
 

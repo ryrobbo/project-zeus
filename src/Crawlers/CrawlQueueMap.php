@@ -27,12 +27,17 @@ class CrawlQueueMap implements CrawlQueue
         return null;
     }
 
-    public function add(string $url): void
+    public function addToPending(string $url): void
     {
         $this->pending->put($url, $url);
     }
 
-    public function remove(string $url): void
+    public function addToCrawled(string $url): void
+    {
+        $this->crawled->put($url, $url);
+    }
+
+    public function removeFromPending(string $url): void
     {
         $this->pending->remove($url);
     }
@@ -45,5 +50,15 @@ class CrawlQueueMap implements CrawlQueue
     public function alreadyPending(string $key): bool
     {
         return $this->pending->hasKey($key);
+    }
+
+    public function getCrawledUrls(): Map
+    {
+        return $this->crawled;
+    }
+
+    public function getPendingUrls(): Map
+    {
+        return $this->pending;
     }
 }

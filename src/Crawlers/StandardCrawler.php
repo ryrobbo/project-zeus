@@ -30,7 +30,7 @@ class StandardCrawler implements CrawlsUrls
         $this->queue = new CrawlQueueMap(); // TODO: DI
     }
 
-    public function crawl()
+    public function crawl(): array
     {
         $this->queue->add($this->website->getStartUrl());
 
@@ -46,9 +46,12 @@ class StandardCrawler implements CrawlsUrls
 
             $this->addToPending($urls);
 
-            // remove self from pending
-            $this->queue->remove($mappedUrl->key);
+            $this->queue->addToCrawled($mappedUrl->key);
+
+            $this->queue->removeFromPending($mappedUrl->key);
         }
+
+        return $this->queue->getCrawledUrls()->toArray();
     }
 
     private function addToPending(array $urls): void
@@ -58,7 +61,7 @@ class StandardCrawler implements CrawlsUrls
         });
 
         foreach ($urls as $url) {
-            $this->queue->add($url);
+            $this->queue->addToPending($url);
         }
     }
 }
