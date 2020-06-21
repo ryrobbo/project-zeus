@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zeus\Parsers;
 
 use Zeus\Parsers\Contracts\DescribesWebsite;
 
-class WebsiteManifest implements DescribesWebsite
+class Website implements DescribesWebsite
 {
     private string $domain;
 

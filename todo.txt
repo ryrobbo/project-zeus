@@ -1,4 +1,3 @@
-1. Finish unit tests for CrawlQueueMap
-2. Units tests for Standard Crawler
-3. Add define strict types to php files - declare(strict_types = 1);
-4. Look at PHP static analysis
+1. Look at PHP static analysis
+2. Dockerbuild file
+3. Git hooks / CI Pipeline

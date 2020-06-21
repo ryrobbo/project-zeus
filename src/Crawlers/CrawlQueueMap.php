@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zeus\Crawlers;
 
@@ -20,7 +20,7 @@ class CrawlQueueMap implements CrawlQueue
 
     public function next(): ?Pair
     {
-        foreach ($this->pending as $pendingUrl) {
+        foreach ($this->pending->pairs() as $pendingUrl) {
             return $pendingUrl;
         }
 

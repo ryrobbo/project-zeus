@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zeus\Crawlers;
 
@@ -21,25 +21,26 @@ class StandardCrawler implements CrawlsUrls
     public function __construct(
         DescribesWebsite $website,
         CommunicatesWithBrowser $browser,
-        ParsesHtmlDocuments $parser
+        ParsesHtmlDocuments $parser,
+        CrawlQueue $queue
     )
     {
         $this->website = $website;
         $this->browser = $browser;
         $this->parser = $parser;
-        $this->queue = new CrawlQueueMap(); // TODO: DI
+        $this->queue = $queue;
     }
 
     public function crawl(): array
     {
-        $this->queue->add($this->website->getStartUrl());
+        $this->queue->addToPending($this->website->getStartUrl());
 
         while ($mappedUrl = $this->queue->next()) {
             if ($this->queue->alreadyCrawled($mappedUrl->key)) {
                 continue;
             }
 
-            $content = $this->browser->content($mappedUrl->value);
+            $content = $this->browser->content($mappedUrl->key);
 
             $this->parser->loadHtml($content);
             $urls = $this->parser->getLinks();

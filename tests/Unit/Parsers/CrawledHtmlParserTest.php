@@ -3,7 +3,7 @@
 namespace Tests\Unit\Parsers;
 
 use PHPUnit\Framework\TestCase;
-use Zeus\Parsers\WebsiteManifest;
+use Zeus\Parsers\Website;
 use Zeus\Parsers\CrawledHtmlParser;
 use Zeus\Parsers\Elements\InternalAnchors;
 use Zeus\Parsers\ParserMissingHtmlException;
@@ -15,7 +15,7 @@ class CrawledHtmlParserTest extends TestCase
     {
         $this->expectException(ParserMissingHtmlException::class);
 
-        $website = new WebsiteManifest('ryrobbo.com', 'http');
+        $website = new Website('ryrobbo.com', 'http');
         $linkParser = new InternalAnchors();
         $parser = new CrawledHtmlParser($website, $linkParser);
 
@@ -25,7 +25,7 @@ class CrawledHtmlParserTest extends TestCase
     /** @test */
     public function get_links_returns_an_array(): void
     {
-        $website = new WebsiteManifest('ryrobbo.com', 'http');
+        $website = new Website('ryrobbo.com', 'http');
         $linkParser = new InternalAnchors();
         $parser = new CrawledHtmlParser($website, $linkParser);
 

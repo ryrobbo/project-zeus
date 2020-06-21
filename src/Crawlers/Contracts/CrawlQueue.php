@@ -2,12 +2,9 @@
 
 namespace Zeus\Crawlers\Contracts;
 
-use Ds\Map;
-use Ds\Pair;
-
 interface CrawlQueue
 {
-    public function next(): ?Pair;
+    public function next();
 
     public function addToPending(string $url): void;
 

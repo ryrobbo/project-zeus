@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Zeus\Browser\Clients;
 
@@ -19,7 +19,7 @@ class RestfulClient implements BrowserlessClient
         return '';
     }
 
-    public function screenshot(string $url)
+    public function screenshot(string $url): void
     {
         // TODO: Implement screenshot() method.
     }
