@@ -18,9 +18,4 @@ class Browserless implements CommunicatesWithBrowser
     {
         return $this->client->content($url);
     }
-
-    public function screenshot(string $url)
-    {
-        return $this->client->screenshot($url);
-    }
 }

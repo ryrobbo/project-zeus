@@ -18,9 +18,4 @@ class RestfulClient implements BrowserlessClient
         // TODO: Implement content() method.
         return '';
     }
-
-    public function screenshot(string $url): void
-    {
-        // TODO: Implement screenshot() method.
-    }
 }

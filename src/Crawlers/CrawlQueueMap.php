@@ -8,8 +8,14 @@ use Zeus\Crawlers\Contracts\CrawlQueue;
 
 class CrawlQueueMap implements CrawlQueue
 {
+    /**
+     * @var Map<string, string>
+     */
     private Map $pending;
 
+    /**
+     * @var Map<string, string>
+     */
     private Map $crawled;
 
     public function __construct()
@@ -18,6 +24,9 @@ class CrawlQueueMap implements CrawlQueue
         $this->crawled = new Map();
     }
 
+    /**
+     * @return Pair<string, string>|null
+     */
     public function next(): ?Pair
     {
         foreach ($this->pending->pairs() as $pendingUrl) {
@@ -52,11 +61,17 @@ class CrawlQueueMap implements CrawlQueue
         return $this->pending->hasKey($key);
     }
 
+    /**
+     * @return Map<string, string>
+     */
     public function getCrawledUrls(): Map
     {
         return $this->crawled;
     }
 
+    /**
+     * @return Map<string, string>
+     */
     public function getPendingUrls(): Map
     {
         return $this->pending;
