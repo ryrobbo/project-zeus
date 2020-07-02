@@ -10,8 +10,7 @@ use Zeus\Parsers\ParserMissingHtmlException;
 
 class CrawledHtmlParserTest extends TestCase
 {
-    /** @test */
-    public function exception_is_thrown_if_dom_document_has_not_been_loaded(): void
+    public function testExceptionIsThrownIfDomDocumentHasNotBeenLoaded(): void
     {
         $this->expectException(ParserMissingHtmlException::class);
 
@@ -22,8 +21,7 @@ class CrawledHtmlParserTest extends TestCase
         $links = $parser->getLinks();
     }
 
-    /** @test */
-    public function get_links_returns_an_array(): void
+    public function testGetLinksReturnsAnArray(): void
     {
         $website = new Website('ryrobbo.com', 'http');
         $linkParser = new InternalAnchors();

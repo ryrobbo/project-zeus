@@ -7,8 +7,7 @@ use Zeus\Crawlers\CrawlQueueMap;
 
 class CrawlQueueMapTest extends TestCase
 {
-    /** @test */
-    public function can_add_url_to_pending(): void
+    public function testCanAddUrlToPending(): void
     {
         $queue = new CrawlQueueMap();
 
@@ -24,8 +23,7 @@ class CrawlQueueMapTest extends TestCase
         $this->assertEquals('link-3', $pending->last()->value);
     }
 
-    /** @test */
-    public function can_add_url_to_crawled(): void
+    public function testCanAddUrlToCrawled(): void
     {
         $queue = new CrawlQueueMap();
 
@@ -41,8 +39,7 @@ class CrawlQueueMapTest extends TestCase
         $this->assertEquals('link-3', $crawled->last()->value);
     }
 
-    /** @test */
-    public function can_remove_url_from_pending(): void
+    public function testCanRemoveUrlFromPending(): void
     {
         $queue = new CrawlQueueMap();
 
@@ -63,8 +60,7 @@ class CrawlQueueMapTest extends TestCase
         $this->assertEquals('link-3', $pending->last()->value);
     }
 
-    /** @test */
-    public function can_check_url_is_already_pending(): void
+    public function testCanCheckUrlIsAlreadyPending(): void
     {
         $queue = new CrawlQueueMap();
 
@@ -79,8 +75,7 @@ class CrawlQueueMapTest extends TestCase
         $this->assertFalse($queue->alreadyPending('link-4'));
     }
 
-    /** @test */
-    public function can_check_url_has_already_been_crawled(): void
+    public function testCanCheckUrlHasAlreadyBeenCrawled(): void
     {
         $queue = new CrawlQueueMap();
 
@@ -95,8 +90,7 @@ class CrawlQueueMapTest extends TestCase
         $this->assertFalse($queue->alreadyCrawled('link-4'));
     }
 
-    /** @test */
-    public function next_returns_first_item_on_pending_map(): void
+    public function testNextReturnsFirstItemOnPendingMap(): void
     {
         $queue = new CrawlQueueMap();
 

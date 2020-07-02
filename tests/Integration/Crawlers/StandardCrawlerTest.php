@@ -13,8 +13,7 @@ use Zeus\Parsers\Elements\InternalAnchors;
 
 class StandardCrawlerTest extends TestCase
 {
-    /** @test */
-    public function crawler_crawls_the_expected_urls(): void
+    public function testCrawlerCrawlsTheExpectedUrls(): void
     {
         $website = new Website('ryrobbo.com', 'http');
         $parser = new CrawledHtmlParser($website, new InternalAnchors());
