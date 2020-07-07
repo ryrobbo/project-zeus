@@ -11,6 +11,7 @@ class RestfulClient implements BrowserlessClient
 
     public function __construct()
     {
+        // TODO: construct a Guzzle client.
     }
 
     public function content(string $url): string

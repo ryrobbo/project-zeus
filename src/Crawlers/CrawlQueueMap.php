@@ -3,7 +3,6 @@
 namespace Zeus\Crawlers;
 
 use Ds\Map;
-use Ds\Pair;
 use Zeus\Crawlers\Contracts\CrawlQueue;
 
 class CrawlQueueMap implements CrawlQueue
@@ -24,13 +23,10 @@ class CrawlQueueMap implements CrawlQueue
         $this->crawled = new Map();
     }
 
-    /**
-     * @return Pair<string, string>|null
-     */
-    public function next(): ?Pair
+    public function nextUrl(): ?string
     {
         foreach ($this->pending->pairs() as $pendingUrl) {
-            return $pendingUrl;
+            return $pendingUrl->value;
         }
 
         return null;
@@ -61,19 +57,13 @@ class CrawlQueueMap implements CrawlQueue
         return $this->pending->hasKey($key);
     }
 
-    /**
-     * @return Map<string, string>
-     */
-    public function getCrawledUrls(): Map
+    public function getCrawledUrls(): array
     {
-        return $this->crawled;
+        return $this->crawled->toArray();
     }
 
-    /**
-     * @return Map<string, string>
-     */
-    public function getPendingUrls(): Map
+    public function getPendingUrls(): array
     {
-        return $this->pending;
+        return $this->pending->toArray();
     }
 }

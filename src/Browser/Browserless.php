@@ -5,6 +5,12 @@ namespace Zeus\Browser;
 use Zeus\Browser\Contracts\BrowserlessClient;
 use Zeus\Browser\Contracts\CommunicatesWithBrowser;
 
+/**
+ * Uses a Browserless client to make the necessary calls to the Browserless service.
+ * One client could use a HTTP connection using Guzzle or another client could use a Websocket connection.
+ *
+ * @package Zeus\Browser
+ */
 class Browserless implements CommunicatesWithBrowser
 {
     private BrowserlessClient $client;

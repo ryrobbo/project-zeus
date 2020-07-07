@@ -19,9 +19,6 @@ class StandardCrawlerTest extends TestCase
         $parser = new CrawledHtmlParser($website, new InternalAnchors());
         $queue = new CrawlQueueMap();
 
-        /**
-         * Here is where we will
-         */
         $browser = $this->getMockBuilder(Browserless::class)
             ->setConstructorArgs([new RestfulClient()])
             ->getMock();

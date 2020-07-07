@@ -1,3 +1,0 @@
-1. Look at PHP static analysis
-2. Dockerbuild file
-3. Git hooks / CI Pipeline

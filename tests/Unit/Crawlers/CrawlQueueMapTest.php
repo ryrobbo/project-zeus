@@ -15,12 +15,12 @@ class CrawlQueueMapTest extends TestCase
         $queue->addToPending('link-2');
         $queue->addToPending('link-3');
 
-        $pending = $queue->getPendingUrls();
+        $pending = array_values($queue->getPendingUrls());
 
-        $this->assertEquals(3, $pending->count());
+        $this->assertCount(3, $pending);
 
-        $this->assertEquals('link-1', $pending->first()->value);
-        $this->assertEquals('link-3', $pending->last()->value);
+        $this->assertEquals('link-1', $pending[0]);
+        $this->assertEquals('link-3', $pending[2]);
     }
 
     public function testCanAddUrlToCrawled(): void
@@ -31,12 +31,12 @@ class CrawlQueueMapTest extends TestCase
         $queue->addToCrawled('link-2');
         $queue->addToCrawled('link-3');
 
-        $crawled = $queue->getCrawledUrls();
+        $crawled = array_values($queue->getCrawledUrls());
 
-        $this->assertEquals(3, $crawled->count());
+        $this->assertCount(3, $crawled);
 
-        $this->assertEquals('link-1', $crawled->first()->value);
-        $this->assertEquals('link-3', $crawled->last()->value);
+        $this->assertEquals('link-1', $crawled[0]);
+        $this->assertEquals('link-3', $crawled[2]);
     }
 
     public function testCanRemoveUrlFromPending(): void
@@ -47,17 +47,18 @@ class CrawlQueueMapTest extends TestCase
         $queue->addToPending('link-2');
         $queue->addToPending('link-3');
 
-        $pending = $queue->getPendingUrls();
+        $pending = array_values($queue->getPendingUrls());
 
-        $this->assertEquals(3, $pending->count());
+        $this->assertCount(3, $pending);
 
         $queue->removeFromPending('link-1');
         $queue->removeFromPending('link-2');
 
-        $this->assertEquals(1, $pending->count());
+        $pending = array_values($queue->getPendingUrls());
 
-        $this->assertEquals('link-3', $pending->first()->value);
-        $this->assertEquals('link-3', $pending->last()->value);
+        $this->assertCount(1, $pending);
+
+        $this->assertEquals('link-3', $pending[0]);
     }
 
     public function testCanCheckUrlIsAlreadyPending(): void
@@ -97,15 +98,15 @@ class CrawlQueueMapTest extends TestCase
         $queue->addToPending('link-1');
         $queue->addToPending('link-2');
 
-        $next = $queue->next();
+        $next = $queue->nextUrl();
 
-        $this->assertEquals('link-1', $next->key);
+        $this->assertEquals('link-1', $next);
 
         $queue->removeFromPending('link-1');
 
-        $next = $queue->next();
+        $next = $queue->nextUrl();
 
-        $this->assertEquals('link-2', $next->key);
+        $this->assertEquals('link-2', $next);
     }
 
 }

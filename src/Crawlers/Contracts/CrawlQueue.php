@@ -4,7 +4,7 @@ namespace Zeus\Crawlers\Contracts;
 
 interface CrawlQueue
 {
-    public function next();
+    public function nextUrl(): ?string;
 
     public function addToPending(string $url): void;
 
@@ -16,7 +16,7 @@ interface CrawlQueue
 
     public function alreadyCrawled(string $key): bool;
 
-    public function getPendingUrls();
+    public function getPendingUrls(): array;
 
-    public function getCrawledUrls();
+    public function getCrawledUrls(): array;
 }

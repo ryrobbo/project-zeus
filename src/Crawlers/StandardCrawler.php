@@ -35,24 +35,24 @@ class StandardCrawler implements CrawlsUrls
     {
         $this->queue->addToPending($this->website->getStartUrl());
 
-        while ($mappedUrl = $this->queue->next()) {
-            if ($this->queue->alreadyCrawled($mappedUrl->key)) {
+        while ($mappedUrl = $this->queue->nextUrl()) {
+            if ($this->queue->alreadyCrawled($mappedUrl)) {
                 continue;
             }
 
-            $content = $this->browser->content($mappedUrl->key);
+            $content = $this->browser->content($mappedUrl);
 
             $this->parser->loadHtml($content);
             $urls = $this->parser->getLinks();
 
             $this->addToPending($urls);
 
-            $this->queue->addToCrawled($mappedUrl->key);
+            $this->queue->addToCrawled($mappedUrl);
 
-            $this->queue->removeFromPending($mappedUrl->key);
+            $this->queue->removeFromPending($mappedUrl);
         }
 
-        return $this->queue->getCrawledUrls()->toArray();
+        return $this->queue->getCrawledUrls();
     }
 
     private function addToPending(array $urls): void
