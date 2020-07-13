@@ -17,8 +17,10 @@ class InternalAnchors implements ParsesAnchors
 
             if (substr($href, 0, 4) === 'http') {
                 $url = parse_url($href);
-                if ($url['host'] === $domain || $url['host'] === 'www.' . $domain) {
-                    array_push($internalLinks, $url['path']);
+                if (isset($url['host']) && isset($url['path'])) {
+                    if ($url['host'] === $domain || $url['host'] === 'www.' . $domain) {
+                        array_push($internalLinks, $url['path']);
+                    }
                 }
             } else {
                 array_push($internalLinks, $href);

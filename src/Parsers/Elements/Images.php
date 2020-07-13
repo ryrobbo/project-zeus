@@ -1,0 +1,3 @@
+<?php
+
+// Image parser - TBC

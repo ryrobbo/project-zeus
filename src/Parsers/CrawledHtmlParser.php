@@ -8,8 +8,7 @@ use Zeus\Parsers\Elements\Contracts\ParsesAnchors;
 
 class CrawledHtmlParser implements ParsesHtmlDocuments
 {
-    /** @var \DOMDocument */
-    private $domDocument;
+    private ?\DOMDocument $domDocument = null;
 
     private DescribesWebsite $manifest;
 
