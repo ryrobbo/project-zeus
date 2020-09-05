@@ -13,5 +13,10 @@
     },
     "autoload-dev": {
         "psr-4": {"Tests\\":  "tests/"}
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
     }
 }
