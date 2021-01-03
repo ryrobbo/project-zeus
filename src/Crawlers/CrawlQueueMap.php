@@ -17,10 +17,16 @@ class CrawlQueueMap implements CrawlQueue
      */
     private Map $crawled;
 
+    /**
+     * @var Map<string, string>
+     */
+    private Map $errored;
+
     public function __construct()
     {
         $this->pending = new Map();
         $this->crawled = new Map();
+        $this->errored = new Map();
     }
 
     public function nextUrl(): ?string
@@ -30,6 +36,11 @@ class CrawlQueueMap implements CrawlQueue
         }
 
         return null;
+    }
+
+    public function addToErrored(string $url): void
+    {
+        $this->errored->put($url, $url);
     }
 
     public function addToPending(string $url): void

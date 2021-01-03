@@ -4,7 +4,7 @@ namespace Zeus\Parsers;
 
 use Zeus\Parsers\Contracts\DescribesWebsite;
 use Zeus\Parsers\Contracts\ParsesHtmlDocuments;
-use Zeus\Parsers\Elements\Contracts\ParsesAnchors;
+use Zeus\Parsers\Elements\Anchors\ParsesAnchors;
 
 class CrawledHtmlParser implements ParsesHtmlDocuments
 {

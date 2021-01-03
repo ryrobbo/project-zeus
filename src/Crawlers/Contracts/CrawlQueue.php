@@ -6,6 +6,8 @@ interface CrawlQueue
 {
     public function nextUrl(): ?string;
 
+    public function addToErrored(string $url): void;
+
     public function addToPending(string $url): void;
 
     public function addToCrawled(string $url): void;

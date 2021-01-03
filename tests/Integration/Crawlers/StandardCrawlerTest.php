@@ -2,6 +2,8 @@
 
 namespace Tests\Integration\Crawlers;
 
+use Zeus\Parsers\Elements\Anchors\HasSamePageAnchorValidator;
+use Zeus\Parsers\Elements\Anchors\IsAnchorToMediaResourceValidator;
 use Zeus\Parsers\Website;
 use Zeus\Browser\Browserless;
 use PHPUnit\Framework\TestCase;
@@ -9,18 +11,24 @@ use Zeus\Crawlers\CrawlQueueMap;
 use Zeus\Crawlers\StandardCrawler;
 use Zeus\Parsers\CrawledHtmlParser;
 use Zeus\Browser\Clients\RestfulClient;
-use Zeus\Parsers\Elements\InternalAnchors;
+use Zeus\Parsers\Elements\Anchors\InternalAnchors;
 
 class StandardCrawlerTest extends TestCase
 {
     public function testCrawlerCrawlsTheExpectedUrls(): void
     {
         $website = new Website('ryrobbo.com', 'http');
-        $parser = new CrawledHtmlParser($website, new InternalAnchors());
+        $internalAnchors = new InternalAnchors([
+            new HasSamePageAnchorValidator(),
+            new IsAnchorToMediaResourceValidator()
+        ]);
+        $parser = new CrawledHtmlParser($website, $internalAnchors);
         $queue = new CrawlQueueMap();
 
         $browser = $this->getMockBuilder(Browserless::class)
-            ->setConstructorArgs([new RestfulClient()])
+            ->setConstructorArgs([
+                $this->getMockBuilder(RestfulClient::class)->disableOriginalConstructor()->getMock()
+            ])
             ->getMock();
 
         $page1 = file_get_contents(__DIR__ . '/../../__sample_html__/crawler/page-1.html');
@@ -36,7 +44,7 @@ class StandardCrawlerTest extends TestCase
 
         $crawler = new StandardCrawler($website, $browser, $parser, $queue);
 
-        $crawledUrls = $crawler->crawl();
+        $crawledUrls = $crawler->crawl()->getCrawledUrls();
 
         $this->assertEquals(6, count($crawledUrls));
 

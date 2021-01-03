@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeus\Parsers\Elements\Contracts;
+namespace Zeus\Parsers\Elements\Anchors;
 
 interface ParsesAnchors
 {

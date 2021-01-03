@@ -2,6 +2,7 @@
 
 namespace Zeus\Crawlers;
 
+use Zeus\Browser\UnableToParseUrlException;
 use Zeus\Crawlers\Contracts\CrawlQueue;
 use Zeus\Crawlers\Contracts\CrawlsUrls;
 use Zeus\Parsers\Contracts\DescribesWebsite;
@@ -31,7 +32,7 @@ class StandardCrawler implements CrawlsUrls
         $this->queue = $queue;
     }
 
-    public function crawl(): array
+    public function crawl(): CrawlQueue
     {
         $this->queue->addToPending($this->website->getStartUrl());
 
@@ -40,19 +41,23 @@ class StandardCrawler implements CrawlsUrls
                 continue;
             }
 
-            $content = $this->browser->content($mappedUrl);
+            try {
+                $content = $this->browser->content($this->buildUrl($mappedUrl));
 
-            $this->parser->loadHtml($content);
-            $urls = $this->parser->getLinks();
+                $this->parser->loadHtml($content);
+                $urls = $this->parser->getLinks();
 
-            $this->addToPending($urls);
+                $this->addToPending($urls);
 
-            $this->queue->addToCrawled($mappedUrl);
+                $this->queue->addToCrawled($mappedUrl);
+            } catch (UnableToParseUrlException $e) {
+                $this->queue->addToErrored($mappedUrl);
+            }
 
             $this->queue->removeFromPending($mappedUrl);
         }
 
-        return $this->queue->getCrawledUrls();
+        return $this->queue;
     }
 
     private function addToPending(array $urls): void
@@ -64,5 +69,15 @@ class StandardCrawler implements CrawlsUrls
         foreach ($urls as $url) {
             $this->queue->addToPending($url);
         }
+    }
+
+    private function buildUrl(string $path): string
+    {
+        return sprintf(
+            '%s://%s%s',
+            $this->website->getProtocol(),
+            $this->website->getDomain(),
+            $path
+        );
     }
 }

@@ -1,6 +1,6 @@
 FROM php:7.4-cli
 
-RUN buildDeps="libpq-dev libzip-dev libicu-dev git" && \
+RUN buildDeps="libpq-dev libzip-dev libicu-dev git curl" && \
     apt-get update && \
     apt-get install -y $buildDeps --no-install-recommends
 
@@ -15,9 +15,3 @@ RUN pecl install ds \
 WORKDIR /var/www/zeus
 
 COPY . .
-
-RUN composer install
-
-RUN vendor/bin/psalm --show-info=true
-RUN vendor/bin/phpstan analyse -c phpstan.neon
-RUN vendor/bin/phpunit

@@ -4,5 +4,5 @@ namespace Zeus\Crawlers\Contracts;
 
 interface CrawlsUrls
 {
-    public function crawl(): array;
+    public function crawl(): CrawlQueue;
 }

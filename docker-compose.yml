@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  app:
+    build: .
+    container_name: "project_zeus_app"
+    volumes:
+      - .:/var/www/zeus/
+    env_file:
+      - .env
+    links:
+      - browserless
+    stdin_open: true
+
+  browserless:
+    image: browserless/chrome
+    container_name: "project_zeus_browserless"
+    ports:
+      - "3000:3000"
+    environment:
+      - DEFAULT_LAUNCH_ARGS=["--window-size=1920,1080"]
