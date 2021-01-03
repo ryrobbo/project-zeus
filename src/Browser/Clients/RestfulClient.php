@@ -20,7 +20,7 @@ class RestfulClient implements BrowserlessClient
         $stack = new HandlerStack();
         $stack->setHandler(new CurlHandler());
 
-        $stack->unshift(Middleware::mapRequest(function (RequestInterface $request) use ($token) {
+        $stack->unshift(Middleware::mapRequest(function (RequestInterface $request) use ($token): RequestInterface {
             return $request->withUri(Uri::withQueryValue($request->getUri(), 'token', $token));
         }));
 

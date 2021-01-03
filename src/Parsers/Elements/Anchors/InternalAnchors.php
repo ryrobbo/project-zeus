@@ -32,6 +32,7 @@ class InternalAnchors implements ParsesAnchors
         $internalLinks = [];
 
         foreach ($documentLinks as $link) {
+            /** @var \DOMElement $link */
             $href = $link->getAttribute('href');
 
             /** Absolute URLs could be internal or external links */
