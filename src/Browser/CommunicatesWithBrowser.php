@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeus\Browser\Contracts;
+namespace Zeus\Browser;
 
 interface CommunicatesWithBrowser
 {

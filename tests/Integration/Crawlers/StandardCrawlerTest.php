@@ -9,7 +9,7 @@ use Zeus\Browser\Browserless;
 use PHPUnit\Framework\TestCase;
 use Zeus\Crawlers\CrawlQueueMap;
 use Zeus\Crawlers\StandardCrawler;
-use Zeus\Parsers\CrawledHtmlParser;
+use Zeus\Parsers\ParseInternalLinks;
 use Zeus\Browser\Clients\RestfulClient;
 use Zeus\Parsers\Elements\Anchors\InternalAnchors;
 
@@ -22,7 +22,7 @@ class StandardCrawlerTest extends TestCase
             new HasSamePageAnchorValidator(),
             new IsAnchorToMediaResourceValidator()
         ]);
-        $parser = new CrawledHtmlParser($website, $internalAnchors);
+        $parser = new ParseInternalLinks($internalAnchors);
         $queue = new CrawlQueueMap();
 
         $browser = $this->getMockBuilder(Browserless::class)

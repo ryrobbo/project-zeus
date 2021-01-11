@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeus\Parsers\Contracts;
+namespace Zeus\Parsers;
 
 interface DescribesWebsite
 {

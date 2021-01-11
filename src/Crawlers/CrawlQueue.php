@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeus\Crawlers\Contracts;
+namespace Zeus\Crawlers;
 
 interface CrawlQueue
 {

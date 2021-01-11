@@ -3,7 +3,6 @@
 namespace Zeus\Crawlers;
 
 use Ds\Map;
-use Zeus\Crawlers\Contracts\CrawlQueue;
 
 class CrawlQueueMap implements CrawlQueue
 {

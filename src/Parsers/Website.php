@@ -2,8 +2,6 @@
 
 namespace Zeus\Parsers;
 
-use Zeus\Parsers\Contracts\DescribesWebsite;
-
 class Website implements DescribesWebsite
 {
     private string $domain;

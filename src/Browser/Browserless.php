@@ -2,8 +2,7 @@
 
 namespace Zeus\Browser;
 
-use Zeus\Browser\Contracts\BrowserlessClient;
-use Zeus\Browser\Contracts\CommunicatesWithBrowser;
+use Zeus\Browser\Clients\BrowserlessClient;
 
 /**
  * Uses a Browserless client to make the necessary calls to the Browserless service.

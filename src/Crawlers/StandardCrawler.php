@@ -3,11 +3,9 @@
 namespace Zeus\Crawlers;
 
 use Zeus\Browser\UnableToParseUrlException;
-use Zeus\Crawlers\Contracts\CrawlQueue;
-use Zeus\Crawlers\Contracts\CrawlsUrls;
-use Zeus\Parsers\Contracts\DescribesWebsite;
-use Zeus\Parsers\Contracts\ParsesHtmlDocuments;
-use Zeus\Browser\Contracts\CommunicatesWithBrowser;
+use Zeus\Parsers\DescribesWebsite;
+use Zeus\Parsers\ParsesHtmlLinks;
+use Zeus\Browser\CommunicatesWithBrowser;
 
 class StandardCrawler implements CrawlsUrls
 {
@@ -15,20 +13,20 @@ class StandardCrawler implements CrawlsUrls
 
     private CommunicatesWithBrowser $browser;
 
-    private ParsesHtmlDocuments $parser;
+    private ParsesHtmlLinks $linkParser;
 
     private CrawlQueue $queue;
 
     public function __construct(
         DescribesWebsite $website,
         CommunicatesWithBrowser $browser,
-        ParsesHtmlDocuments $parser,
+        ParsesHtmlLinks $linkParser,
         CrawlQueue $queue
     )
     {
         $this->website = $website;
         $this->browser = $browser;
-        $this->parser = $parser;
+        $this->linkParser = $linkParser;
         $this->queue = $queue;
     }
 
@@ -44,8 +42,7 @@ class StandardCrawler implements CrawlsUrls
             try {
                 $content = $this->browser->content($this->buildUrl($mappedUrl));
 
-                $this->parser->loadHtml($content);
-                $urls = $this->parser->getLinks();
+                $urls = $this->linkParser->parse($this->website, $content);
 
                 $this->addToPending($urls);
 

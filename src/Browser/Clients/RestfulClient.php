@@ -8,7 +8,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
-use Zeus\Browser\Contracts\BrowserlessClient;
 use Zeus\Browser\UnableToParseUrlException;
 
 class RestfulClient implements BrowserlessClient

@@ -18,7 +18,7 @@ $internalAnchors = new \Zeus\Parsers\Elements\Anchors\InternalAnchors([
     new \Zeus\Parsers\Elements\Anchors\HasSamePageAnchorValidator(),
     new \Zeus\Parsers\Elements\Anchors\IsAnchorToMediaResourceValidator()
 ]);
-$parser = new \Zeus\Parsers\CrawledHtmlParser($website, $internalAnchors);
+$parser = new \Zeus\Parsers\ParseInternalLinks($internalAnchors);
 $queue = new \Zeus\Crawlers\CrawlQueueMap();
 
 $crawler = new \Zeus\Crawlers\StandardCrawler($website, $browser, $parser, $queue);
