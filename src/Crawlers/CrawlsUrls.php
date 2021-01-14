@@ -2,7 +2,9 @@
 
 namespace Zeus\Crawlers;
 
+use Zeus\Parsers\DescribesWebsite;
+
 interface CrawlsUrls
 {
-    public function crawl(): CrawlQueue;
+    public function crawl(DescribesWebsite $website): CrawlQueue;
 }

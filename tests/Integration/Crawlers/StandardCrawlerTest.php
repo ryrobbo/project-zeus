@@ -42,9 +42,9 @@ class StandardCrawlerTest extends TestCase
             $this->onConsecutiveCalls($page1, $page2, $page3, $page4, $page5, $page6)
         );
 
-        $crawler = new StandardCrawler($website, $browser, $parser, $queue);
+        $crawler = new StandardCrawler($browser, $parser, $queue);
 
-        $crawledUrls = $crawler->crawl()->getCrawledUrls();
+        $crawledUrls = $crawler->crawl($website)->getCrawledUrls();
 
         $this->assertEquals(6, count($crawledUrls));
 

@@ -9,8 +9,6 @@ use Zeus\Browser\CommunicatesWithBrowser;
 
 class StandardCrawler implements CrawlsUrls
 {
-    private DescribesWebsite $website;
-
     private CommunicatesWithBrowser $browser;
 
     private ParsesHtmlLinks $linkParser;
@@ -18,21 +16,19 @@ class StandardCrawler implements CrawlsUrls
     private CrawlQueue $queue;
 
     public function __construct(
-        DescribesWebsite $website,
         CommunicatesWithBrowser $browser,
         ParsesHtmlLinks $linkParser,
         CrawlQueue $queue
     )
     {
-        $this->website = $website;
         $this->browser = $browser;
         $this->linkParser = $linkParser;
         $this->queue = $queue;
     }
 
-    public function crawl(): CrawlQueue
+    public function crawl(DescribesWebsite $website): CrawlQueue
     {
-        $this->queue->addToPending($this->website->getStartUrl());
+        $this->queue->addToPending($website->getStartUrl());
 
         while ($mappedUrl = $this->queue->nextUrl()) {
             if ($this->queue->alreadyCrawled($mappedUrl)) {
@@ -40,9 +36,9 @@ class StandardCrawler implements CrawlsUrls
             }
 
             try {
-                $content = $this->browser->content($this->buildUrl($mappedUrl));
+                $content = $this->browser->content($this->buildUrl($website, $mappedUrl));
 
-                $urls = $this->linkParser->parse($this->website, $content);
+                $urls = $this->linkParser->parse($website, $content);
 
                 $this->addToPending($urls);
 
@@ -68,12 +64,12 @@ class StandardCrawler implements CrawlsUrls
         }
     }
 
-    private function buildUrl(string $path): string
+    private function buildUrl(DescribesWebsite $website, string $path): string
     {
         return sprintf(
             '%s://%s%s',
-            $this->website->getProtocol(),
-            $this->website->getDomain(),
+            $website->getProtocol(),
+            $website->getDomain(),
             $path
         );
     }
