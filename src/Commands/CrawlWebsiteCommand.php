@@ -35,15 +35,19 @@ class CrawlWebsiteCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $website = new Website(
-            $input->getArgument('protocol'),
-            $input->getArgument('domain')
-        );
+        $protocol = $input->getArgument('protocol');
+        $domain = $input->getArgument('domain');
 
-        $this->browser->healthCheck($website->getDomainUrl());
+        if (is_string($protocol) && is_string($domain)) {
+            $website = new Website($protocol, $domain);
 
-        $crawler = $this->crawler->crawl($website);
+            $this->browser->healthCheck($website->getDomainUrl());
 
-        return Command::SUCCESS;
+            $crawler = $this->crawler->crawl($website);
+
+            return Command::SUCCESS;
+        }
+
+        return Command::FAILURE;
     }
 }
