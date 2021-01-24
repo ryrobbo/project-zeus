@@ -4,5 +4,5 @@ namespace Zeus\Browser\Clients;
 
 interface BrowserlessClient
 {
-    public function content(string $url): string;
+    public function post(string $uri, array $options): string;
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Zeus\Browser\Clients\RestfulClient;
 use Zeus\Browser\Browserless;
 use Psr\Container\ContainerInterface;
 use Zeus\Parsers\ParseInternalLinks;
@@ -12,7 +13,7 @@ use Zeus\Parsers\Elements\Anchors\IsAnchorToMediaResourceValidator;
 return [
     Browserless::class => DI\factory(function (ContainerInterface $container) {
         return new Browserless(
-            new \Zeus\Browser\Clients\RestfulClient(
+            new RestfulClient(
                 $_ENV['BROWSERLESS_HOST'],
                 $_ENV['BROWSERLESS_PORT'],
                 $_ENV['BROWSERLESS_TOKEN']

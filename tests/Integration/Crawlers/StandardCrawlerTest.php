@@ -17,7 +17,7 @@ class StandardCrawlerTest extends TestCase
 {
     public function testCrawlerCrawlsTheExpectedUrls(): void
     {
-        $website = new Website('ryrobbo.com', 'http');
+        $website = new Website('http', 'ryrobbo.com');
         $internalAnchors = new InternalAnchors([
             new HasSamePageAnchorValidator(),
             new IsAnchorToMediaResourceValidator()

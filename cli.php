@@ -11,7 +11,10 @@ $zeusApp = require_once __DIR__ . '/bootstrap/zeus.php';
 $application = new Application('zeus', '1.0.0');
 
 $application->add(
-    new \Zeus\Commands\CrawlWebsiteCommand($zeusApp->container()->get(\Zeus\Crawlers\StandardCrawler::class))
+    new \Zeus\Commands\CrawlWebsiteCommand(
+        $zeusApp->container()->get(\Zeus\Crawlers\StandardCrawler::class),
+        $zeusApp->container()->get(\Zeus\Browser\Browserless::class)
+    )
 );
 
 $application->run();

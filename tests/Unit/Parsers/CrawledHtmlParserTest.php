@@ -13,7 +13,7 @@ class CrawledHtmlParserTest extends TestCase
 {
     public function testGetLinksReturnsAnArray(): void
     {
-        $website = new Website('ryrobbo.com', 'http');
+        $website = new Website('http', 'ryrobbo.com');
         $linkParser = new InternalAnchors([
             new IsAnchorToMediaResourceValidator(),
             new HasSamePageAnchorValidator()

@@ -7,3 +7,7 @@ code-quality:
 	./vendor/bin/phpstan analyse -c phpstan.neon
 docker:
 	docker exec -it project_zeus_app /bin/sh
+docker-up:
+	docker-compose up -d
+docker-down:
+	docker-compose down

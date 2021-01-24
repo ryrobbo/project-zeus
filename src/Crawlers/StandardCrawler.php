@@ -67,9 +67,8 @@ class StandardCrawler implements CrawlsUrls
     private function buildUrl(DescribesWebsite $website, string $path): string
     {
         return sprintf(
-            '%s://%s%s',
-            $website->getProtocol(),
-            $website->getDomain(),
+            '%s%s',
+            $website->getDomainUrl(),
             $path
         );
     }

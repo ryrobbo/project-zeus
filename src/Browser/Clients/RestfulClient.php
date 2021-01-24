@@ -3,12 +3,12 @@
 namespace Zeus\Browser\Clients;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
-use Zeus\Browser\UnableToParseUrlException;
 
 class RestfulClient implements BrowserlessClient
 {
@@ -31,18 +31,15 @@ class RestfulClient implements BrowserlessClient
         ]);
     }
 
-    public function content(string $url): string
+    public function post(string $uri, array $options): string
     {
         try {
-            $response = $this->client->request('POST', '/content', [
-                'json' => [
-                    'url' => $url
-                ]
-            ]);
-
+            $response = $this->client->request('POST', $uri, $options);
             return $response->getBody()->getContents();
+        } catch (ConnectException $e) {
+            throw new UnableToReachBrowserlessException('Unable to connect to the Browserless service');
         } catch (\Exception $e) {
-            throw new UnableToParseUrlException($e->getMessage());
+            throw $e;
         }
     }
 }

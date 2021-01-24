@@ -10,5 +10,7 @@ interface DescribesWebsite
 
     public function getStartUrl(): string;
 
+    public function getDomainUrl(): string;
+
     public function setStartUrl(string $url): DescribesWebsite;
 }
