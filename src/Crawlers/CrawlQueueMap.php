@@ -76,4 +76,9 @@ class CrawlQueueMap implements CrawlQueue
     {
         return $this->pending->toArray();
     }
+
+    public function getErroredUrls(): array
+    {
+        return $this->errored->toArray();
+    }
 }

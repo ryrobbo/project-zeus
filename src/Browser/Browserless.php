@@ -41,7 +41,7 @@ class Browserless implements CommunicatesWithBrowser
 
         $healthCheck = json_decode($result);
 
-        if ($healthCheck->status !== 200) {
+        if (is_null($healthCheck) || $healthCheck->status !== 200) {
             throw new WebsiteFailedHealthCheckException(
                 sprintf('The website about to be crawled failed a health check (%s)', $url)
             );

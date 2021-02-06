@@ -41,9 +41,32 @@ class CrawlWebsiteCommand extends Command
         if (is_string($protocol) && is_string($domain)) {
             $website = new Website($protocol, $domain);
 
+            $output->writeln('Crawling website ' . $website->getDomainUrl());
+
             $this->browser->healthCheck($website->getDomainUrl());
 
+            $output->writeln('Health check passed');
+            $output->writeln('Begin crawling...');
+
             $crawler = $this->crawler->crawl($website);
+
+            $output->writeln('Finished crawling!');
+
+            $output->writeln(
+                sprintf('Crawled URLs: (%s total)', count($crawler->getCrawledUrls()))
+            );
+
+            foreach ($crawler->getCrawledUrls() as $crawledUrl) {
+                $output->writeln($crawledUrl);
+            }
+
+            $output->writeln(
+                sprintf('Errored URLs: (%s total)', count($crawler->getErroredUrls()))
+            );
+
+            foreach ($crawler->getErroredUrls() as $erroredUrl) {
+                $output->writeln($erroredUrl);
+            }
 
             return Command::SUCCESS;
         }

@@ -21,4 +21,6 @@ interface CrawlQueue
     public function getPendingUrls(): array;
 
     public function getCrawledUrls(): array;
+
+    public function getErroredUrls(): array;
 }
