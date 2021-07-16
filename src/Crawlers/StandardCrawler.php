@@ -26,7 +26,7 @@ class StandardCrawler implements CrawlsUrls
         $this->queue = $queue;
     }
 
-    public function crawl(DescribesWebsite $website): CrawlQueue
+    public function crawl(DescribesWebsite $website, ?callable $crawledUrlCallback = null): CrawlQueue
     {
         $this->queue->addToPending($website->getStartUrl());
 
@@ -43,6 +43,10 @@ class StandardCrawler implements CrawlsUrls
                 $this->addToPending($urls);
 
                 $this->queue->addToCrawled($mappedUrl);
+
+                if (is_callable($crawledUrlCallback)) {
+                    call_user_func($crawledUrlCallback, $mappedUrl);
+                }
             } catch (UnableToParseUrlException $e) {
                 $this->queue->addToErrored($mappedUrl);
             }

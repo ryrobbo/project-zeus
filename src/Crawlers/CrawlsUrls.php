@@ -6,5 +6,5 @@ use Zeus\Parsers\DescribesWebsite;
 
 interface CrawlsUrls
 {
-    public function crawl(DescribesWebsite $website): CrawlQueue;
+    public function crawl(DescribesWebsite $website, ?callable $crawledUrlCallback): CrawlQueue;
 }

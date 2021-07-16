@@ -48,7 +48,11 @@ class CrawlWebsiteCommand extends Command
             $output->writeln('Health check passed');
             $output->writeln('Begin crawling...');
 
-            $crawler = $this->crawler->crawl($website);
+            $logger = function (string $url) use ($output): void {
+                $output->writeln('Crawled: ' . $url);
+            };
+
+            $crawler = $this->crawler->crawl($website, $logger);
 
             $output->writeln('Finished crawling!');
 
